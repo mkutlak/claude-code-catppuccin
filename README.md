@@ -9,6 +9,12 @@ The four [Catppuccin](https://catppuccin.com) flavors as Claude Code themes. Eve
 | Catppuccin Macchiato | dark |
 | Catppuccin Mocha | dark |
 
+| Latte | Frappé |
+| --- | --- |
+| ![Claude Code in Catppuccin Latte: an edit with its diff, accept-edits mode and a bash command](assets/catppuccin-latte.webp) | ![Claude Code in Catppuccin Frappé: an edit with its diff, accept-edits mode and a bash command](assets/catppuccin-frappe.webp) |
+| **Macchiato** | **Mocha** |
+| ![Claude Code in Catppuccin Macchiato: an edit with its diff, accept-edits mode and a bash command](assets/catppuccin-macchiato.webp) | ![Claude Code in Catppuccin Mocha: an edit with its diff, accept-edits mode and a bash command](assets/catppuccin-mocha.webp) |
+
 ## Requirements
 
 - Claude Code 2.1.118 or later, in a terminal. Themes color Claude Code's terminal interface, including in the VS Code and JetBrains terminals.
@@ -77,6 +83,13 @@ claude --plugin-dir .
 ```
 
 CI fails a pull request whose `themes/` does not match `tools/gen.py`.
+
+To record the animations in `assets/` again, put `ANTHROPIC_API_KEY=...` in a file outside the repo and run the recording in Docker. Each flavor is a short Claude Code session on Haiku:
+
+```
+docker build -t cc-demo tools/demo
+docker run --rm -u "$(id -u):$(id -g)" --env-file ~/path/to/key.env -v "$PWD:/src:ro" -v "$PWD/assets:/out" cc-demo
+```
 
 ## Releasing
 
