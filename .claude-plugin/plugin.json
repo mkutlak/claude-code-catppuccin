@@ -2,9 +2,15 @@
   "name": "catppuccin",
   "version": "0.1.0",
   "description": "Catppuccin themes for Claude Code: Latte, Frappé, Macchiato and Mocha.",
-  "author": { "name": "Martin Kutlák", "url": "https://github.com/mkutlak" },
+  "author": {
+    "name": "Martin Kutlák",
+    "url": "https://github.com/mkutlak"
+  },
   "homepage": "https://github.com/mkutlak/claude-code-catppuccin",
   "repository": "https://github.com/mkutlak/claude-code-catppuccin",
   "license": "MIT",
-  "keywords": ["theme", "catppuccin"]
+  "keywords": [
+    "theme",
+    "catppuccin"
+  ]
 }
