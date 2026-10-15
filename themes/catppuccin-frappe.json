@@ -25,7 +25,7 @@
 
     "promptBorder": "#737994",
     "promptBorderShimmer": "#949cbb",
-    "planMode": "#81c8be",
+    "planMode": "#7fc8be",
     "autoAccept": "#ca9ee6",
     "autoAcceptShimmer": "#c8b2ec",
     "bashBorder": "#f4b8e4",
@@ -36,12 +36,12 @@
     "skill": "#ca9ee6",
     "claudeBlue_FOR_SYSTEM_SPINNER": "#babbf1",
     "claudeBlueShimmer_FOR_SYSTEM_SPINNER": "#bfc3f3",
-    "background": "#81c8be",
+    "background": "#7fc8be",
     "chromeYellow": "#e5c890",
     "professionalBlue": "#85c1dc",
 
     "diffAdded": "#385e40",
-    "diffAddedWord": "#3b7348",
+    "diffAddedWord": "#197348",
     "diffAddedDimmed": "#354b39",
     "diffRemoved": "#77414a",
     "diffRemovedWord": "#944a57",
@@ -64,7 +64,7 @@
     "purple_FOR_SUBAGENTS_ONLY": "#ca9ee6",
     "orange_FOR_SUBAGENTS_ONLY": "#ef9f76",
     "pink_FOR_SUBAGENTS_ONLY": "#f4b8e4",
-    "cyan_FOR_SUBAGENTS_ONLY": "#81c8be",
+    "cyan_FOR_SUBAGENTS_ONLY": "#7fc8be",
 
     "rainbow_red": "#e78284",
     "rainbow_red_shimmer": "#daa1b1",

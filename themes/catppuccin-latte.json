@@ -48,14 +48,14 @@
     "diffRemovedDimmed": "#fad2d7",
 
     "userMessageBackground": "#ccd0da",
-    "userMessageBackgroundHover": "#bcc0cc",
+    "userMessageBackgroundHover": "#b2c0cc",
     "bashMessageBackgroundColor": "#ccd0da",
     "memoryBackgroundColor": "#ccd0da",
     "composerSidebarBackground": "#e6e9ef",
     "selectionBg": "#acb0be",
 
     "rate_limit_fill": "#1e66f5",
-    "rate_limit_empty": "#bcc0cc",
+    "rate_limit_empty": "#b2c0cc",
 
     "red_FOR_SUBAGENTS_ONLY": "#d20f39",
     "blue_FOR_SUBAGENTS_ONLY": "#1e66f5",
