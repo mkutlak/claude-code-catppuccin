@@ -1,0 +1,9 @@
+# Local tool state
+.omc/
+.claude/settings.local.json
+
+# Written by Claude Code when the plugin is loaded from this folder
+.claude-plugin/types/
+
+.DS_Store
+__pycache__/

@@ -1,0 +1,6 @@
+{
+  "name": "catppuccin",
+  "description": "Catppuccin themes for Claude Code",
+  "owner": { "name": "Martin Kutlák" },
+  "plugins": [{ "name": "catppuccin", "source": "./" }]
+}
