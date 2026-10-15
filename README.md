@@ -9,11 +9,15 @@ The four [Catppuccin](https://catppuccin.com) flavors as Claude Code themes. Eve
 | Catppuccin Macchiato | dark |
 | Catppuccin Mocha | dark |
 
+## Requirements
+
+- Claude Code 2.1.118 or later, in a terminal. Themes color Claude Code's terminal interface, including in the VS Code and JetBrains terminals.
+- git on your `PATH`: Claude Code clones the marketplace with it. On Windows, install [Git for Windows](https://gitforwindows.org).
+- 24-bit color shows the exact palette. Claude Code uses it when the terminal sets `COLORTERM=truecolor`, as most do; otherwise it rounds every color to the nearest of 256, and the themes keep them distinct there. Terminal.app has 24-bit color from macOS 26: if it doesn't set `COLORTERM` for you, add `export COLORTERM=truecolor` to your shell profile.
+
 ## Install
 
-Needs Claude Code 2.1.118 or later, and 2.1.275 for the one-line install.
-
-At the prompt of a Claude Code terminal session:
+At the prompt of a Claude Code terminal session (2.1.275 or later):
 
 ```
 /plugin install catppuccin --marketplace mkutlak/claude-code-catppuccin
@@ -34,14 +38,22 @@ On an older Claude Code, add the marketplace first:
 /plugin install catppuccin@catppuccin
 ```
 
-In the desktop app, where `/plugin` does not run: click + next to the prompt box, then Plugins, Add marketplace with `mkutlak/claude-code-catppuccin`, then Add plugin.
-
 ## Use
 
 Run `/theme` and pick a flavor, or set it in `settings.json`:
 
 ```json
 { "theme": "custom:catppuccin:catppuccin-mocha" }
+```
+
+Claude Code does not change your terminal's own background, so use the same flavor in your terminal; Catppuccin has [themes for most terminals](https://catppuccin.com/ports). Mocha on a white terminal, or Latte on a black one, is hard to read.
+
+## Updating
+
+Claude Code does not auto-update plugins from third-party marketplaces unless you turn it on, in `/plugin` under Marketplaces. To update by hand:
+
+```
+claude plugin update catppuccin@catppuccin
 ```
 
 ## How the colors are picked
@@ -52,10 +64,11 @@ Each token gets the role the [Catppuccin style guide](https://github.com/catppuc
 - Diff backgrounds are built in OKLCH, stepping from Base toward Text. The guide's 20% Green or Red over Base comes out grey, so added and removed lines would look alike.
 - Dim text is Overlay 2 (Subtext 0 on Latte), not the guide's Overlay 1, which is too faint on a user message's background.
 - Auto-accept and bash mode have no role in the guide, so they keep the hue of Claude Code's own dark theme.
+- A terminal without 24-bit color rounds every color to its 256-color palette. Seven colors are nudged by about the smallest visible step, so pairs like Claude's orange and the warning yellow still round to different colors.
 
 ## Changing the themes
 
-The files in `themes/` are generated. Edit the mapping in `tools/gen.py`, then:
+The files in `themes/` are generated. Edit the mapping in `tools/gen.py`, then run it with Python 3.10 or later:
 
 ```
 python3 tools/gen.py
