@@ -133,9 +133,43 @@ def overrides(c, light):
     ]
 
 
+def ansi256(h):
+    """The xterm-256 color a terminal without 24-bit color gets for h: chalk's rounding, as in Claude Code."""
+    r, g, b = (int(h[i:i + 2], 16) for i in (1, 3, 5))
+    if r == g == b:
+        return 16 if r < 8 else 231 if r > 248 else round((r - 8) / 247 * 24) + 232
+    return 16 + 36 * round(r / 51) + 6 * round(g / 51) + round(b / 51)
+
+
+assert ansi256("#ff0000") == 196 and ansi256("#1e1e1e") == 234
+
+
+# 256-color terminals (Terminal.app before macOS 26) round each color to the xterm cube, where some pairs land
+# on the same color. Each nudge moves one a few RGB steps (OKLab dE 0.2 to 2.4, about the smallest difference
+# the eye can tell) into a cube cell of its own. The comments give the 256-color index before and after.
+NUDGE = {
+    "latte": {"#bcc0cc": "#b2c0cc"},      # Surface 1, the message hover: 188, the message's grey -> 152
+    "frappe": {"#81c8be": "#7fc8be",      # Teal, plan mode: 152, IDE's -> 116
+               "#3b7348": "#197348"},     # diffAddedWord: 65, the line's -> 29
+    "macchiato": {"#326a40": "#196a40"},  # diffAddedWord: 65, the line's -> 29
+    "mocha": {"#fab387": "#fab27f",       # Peach, Claude: 223, Yellow's -> 216
+              "#274c2f": "#274d2f",       # diffAdded: 59 grey -> 65 green
+              "#2b643a": "#19643a"},      # diffAddedWord: 65, the line's now -> 29
+}
+# Tokens that must still look different at 256 colors.
+APART = [("claude", "warning"), ("planMode", "ide"), ("diffAdded", "diffRemoved"), ("diffAdded", "diffAddedWord"),
+         ("diffRemoved", "diffRemovedWord"), ("userMessageBackground", "userMessageBackgroundHover")]
+
 out = Path(__file__).resolve().parent.parent / "themes"
 for slug, (name, base, c) in P.items():
-    groups = [",\n".join(f"    {json.dumps(k)}: {json.dumps(v)}" for k, v in g.items()) for g in overrides(c, base == "light")]
+    raw = overrides(c, base == "light")
+    nudge = NUDGE[slug]
+    assert set(nudge) <= {v for g in raw for v in g.values()}, f"{slug}: a nudge matches no color; the mapping changed"
+    tokens = [{k: nudge.get(v, v) for k, v in g.items()} for g in raw]
+    flat = {k: v for g in tokens for k, v in g.items()}
+    for a, b in APART:
+        assert ansi256(flat[a]) != ansi256(flat[b]), f"{slug}: {a} and {b} are both {ansi256(flat[a])} at 256 colors"
+    groups = [",\n".join(f"    {json.dumps(k)}: {json.dumps(v)}" for k, v in g.items()) for g in tokens]
     body = ",\n\n".join(groups)
-    (out / f"catppuccin-{slug}.json").write_text(f'{{\n  "name": {json.dumps(name, ensure_ascii=False)},\n  "base": "{base}",\n  "overrides": {{\n{body}\n  }}\n}}\n', encoding="utf-8")
+    (out / f"catppuccin-{slug}.json").write_text(f'{{\n  "name": {json.dumps(name, ensure_ascii=False)},\n  "base": "{base}",\n  "overrides": {{\n{body}\n  }}\n}}\n', encoding="utf-8", newline="\n")
     print(f"wrote {out.name}/catppuccin-{slug}.json")
