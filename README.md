@@ -63,7 +63,11 @@ claude plugin validate .
 claude --plugin-dir .
 ```
 
-Bump `version` in `.claude-plugin/plugin.json` when you release a change, or installed copies will not pick it up.
+CI fails a pull request whose `themes/` does not match `tools/gen.py`.
+
+## Releasing
+
+Versions follow [semver](https://semver.org), read from [Conventional Commits](https://www.conventionalcommits.org): `fix:` makes a patch release, `feat:` a minor one, and `feat!:` or a `BREAKING CHANGE:` footer a major one. On each push to `main`, [release-please](https://github.com/googleapis/release-please) keeps a release PR open that bumps `version` in `.claude-plugin/plugin.json` and updates `CHANGELOG.md`. Merging it tags `vX.Y.Z` and publishes the GitHub release. Installed copies only pick up a new version.
 
 ## Credits
 

@@ -1,0 +1,19 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: themes/ matches tools/gen.py
+        run: python3 tools/gen.py && git diff --exit-code
+      - name: Plugin and marketplace manifests validate
+        run: npx -y @anthropic-ai/claude-code plugin validate .
