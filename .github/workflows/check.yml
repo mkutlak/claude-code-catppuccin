@@ -12,8 +12,11 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: themes/ matches tools/gen.py
         run: python3 tools/gen.py && git diff --exit-code
       - name: Plugin and marketplace manifests validate
-        run: npx -y @anthropic-ai/claude-code plugin validate .
+        # shortcut: Dependabot can't bump an npx pin; bump it by hand when validate needs a newer CLI
+        run: npx -y @anthropic-ai/claude-code@2.1.300 plugin validate .
